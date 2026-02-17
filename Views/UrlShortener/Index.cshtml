@@ -1,0 +1,32 @@
+﻿@model UrlShortener.Models.UrlShortenerViewModel
+
+@{
+    ViewData["Title"] = "URL Shortener";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1>URL Shortener</h1>
+
+    <form asp-action="Index" method="post">
+        <input asp-for="LongUrl" placeholder="Introduce una URL larga" />
+        <span asp-validation-for="LongUrl" class="error"></span>
+
+        <button type="submit">Acortar URL</button>
+    </form>
+
+    @if (Model.ShortUrl != null)
+    {
+        <div class="result">
+            <p>URL acortada:</p>
+            <a href="@Model.ShortUrl" target="_blank">
+                @Model.ShortUrl
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
