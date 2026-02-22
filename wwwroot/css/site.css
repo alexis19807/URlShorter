@@ -1,43 +1,188 @@
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-soft: #dbeafe;
+    --text-main: #0b1020;
+}
+
 body {
-    background-color: #f4f6f8;
-    font-family: Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at top left, #1d4ed8 0, transparent 55%),
+        radial-gradient(circle at bottom right, #0f172a 0, transparent 55%),
+        #020617;
+    color: var(--text-main);
 }
 
-.container {
-    width: 400px;
-    margin: 100px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
+.hero-section {
+    padding: 4rem 0 3rem;
+    color: #f9fafb;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+.hero-title {
+    font-size: clamp(2.4rem, 3vw + 1.2rem, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0066ff;
-    color: white;
+.hero-subtitle {
+    font-size: 1.05rem;
+    max-width: 32rem;
+    color: #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+.hero-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+    color: #e5e7eb;
+}
+
+.hero-benefits li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.benefit-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    flex-shrink: 0;
+}
+
+.shortener-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 2rem;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.shortener-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #0f172a;
+}
+
+.shortener-description {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.shortener-input {
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.75rem;
+    border: 1px solid #d1d5db;
+}
+
+.shortener-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+}
+
+.shortener-button {
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
-    button:hover {
-        background-color: #004dcc;
+.shortener-button:hover {
+    background: linear-gradient(135deg, var(--primary-dark), #1e40af);
+}
+
+.short-url-result {
+    background: var(--primary-soft);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+    border: 1px dashed rgba(37, 99, 235, 0.5);
+}
+
+.short-url-input {
+    font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9rem;
+}
+
+.copy-button {
+    white-space: nowrap;
+}
+
+.features-section {
+    background: #f3f4f8;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.5rem 1.6rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.09);
+    border-color: rgba(37, 99, 235, 0.5);
+}
+
+.feature-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+}
+
+.feature-text {
+    font-size: 0.95rem;
+    color: #4b5563;
+}
+
+.cta-section {
+    background: #020617;
+    color: #e5e7eb;
+}
+
+.cta-title {
+    font-size: clamp(1.8rem, 2.4vw + 1rem, 2.3rem);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.cta-text {
+    font-size: 0.98rem;
+    max-width: 32rem;
+    margin: 0 auto 1.5rem auto;
+    color: #9ca3af;
+}
+
+.cta-button {
+    padding: 0.75rem 1.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    border: none;
+    color: #0f172a;
+}
+
+.cta-button:hover {
+    background-color: #e5e7eb;
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        padding-top: 3rem;
     }
 
-.result {
-    margin-top: 20px;
-}
-
-.error {
-    color: red;
-    font-size: 12px;
+    .shortener-card {
+        padding: 1.4rem 1.3rem;
+    }
 }

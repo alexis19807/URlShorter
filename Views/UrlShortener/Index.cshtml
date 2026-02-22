@@ -1,32 +1,143 @@
-﻿@model UrlShortener.Models.UrlShortenerViewModel
+@model UrlShortener.Models.UrlShortenerViewModel
 
 @{
-    ViewData["Title"] = "URL Shortener";
+    ViewData["Title"] = "Acorta tus enlaces";
 }
 
-<link rel="stylesheet" href="~/css/site.css" />
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="hero-title">Acorta tus enlaces en segundos</h1>
+                <p class="hero-subtitle">
+                    Convierte URLs largas en enlaces cortos, limpios y fáciles de compartir,
+                    inspirado en la experiencia de Bitly.
+                </p>
+                <ul class="hero-benefits">
+                    <li><span class="benefit-dot"></span> Sin registro obligatorio</li>
+                    <li><span class="benefit-dot"></span> Enlaces simples y profesionales</li>
+                    <li><span class="benefit-dot"></span> Listo para compartir en redes o email</li>
+                </ul>
+            </div>
 
-<div class="container">
-    <h1>URL Shortener</h1>
+            <div class="col-lg-6">
+                <div class="shortener-card shadow-lg">
+                    <h2 class="shortener-title">Pega tu URL larga</h2>
+                    <p class="shortener-description">
+                        Pega cualquier enlace largo y obtén al instante una versión corta.
+                    </p>
 
-    <form asp-action="Index" method="post">
-        <input asp-for="LongUrl" placeholder="Introduce una URL larga" />
-        <span asp-validation-for="LongUrl" class="error"></span>
+                    <form asp-action="Index" method="post" class="shortener-form">
+                        <div class="mb-3">
+                            <label asp-for="LongUrl" class="form-label">URL larga</label>
+                            <input asp-for="LongUrl"
+                                   class="form-control shortener-input"
+                                   placeholder="https://ejemplo.com/tu/enlace/muy/largo" />
+                            <span asp-validation-for="LongUrl" class="text-danger small"></span>
+                        </div>
 
-        <button type="submit">Acortar URL</button>
-    </form>
+                        <button type="submit" class="btn btn-primary w-100 shortener-button">
+                            Acortar URL
+                        </button>
+                    </form>
 
-    @if (Model.ShortUrl != null)
-    {
-        <div class="result">
-            <p>URL acortada:</p>
-            <a href="@Model.ShortUrl" target="_blank">
-                @Model.ShortUrl
-            </a>
+                    @if (Model.ShortUrl != null)
+                    {
+                        <div class="short-url-result mt-4">
+                            <p class="mb-1 text-muted">Tu enlace corto</p>
+                            <div class="d-flex flex-column flex-sm-row gap-2 align-items-stretch">
+                                <input type="text"
+                                       class="form-control short-url-input"
+                                       value="@Model.ShortUrl"
+                                       readonly />
+                                <button type="button"
+                                        class="btn btn-outline-secondary w-100 w-sm-auto copy-button"
+                                        data-url="@Model.ShortUrl">
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-    }
+    </div>
 </div>
+
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="feature-title">Simple y rápido</h3>
+                    <p class="feature-text">
+                        En cuestión de segundos conviertes enlaces muy largos en URLs cortas,
+                        listas para compartir donde quieras.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="feature-title">Diseño moderno</h3>
+                    <p class="feature-text">
+                        Interfaz limpia y agradable inspirada en Bitly, pero adaptada a tu
+                        propia marca y proyecto.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card h-100">
+                    <h3 class="feature-title">Pensado para compartir</h3>
+                    <p class="feature-text">
+                        Ideal para redes sociales, campañas de marketing, formularios y
+                        cualquier situación donde necesites enlaces cortos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section py-5">
+    <div class="container text-center">
+        <h2 class="cta-title">Empieza a acortar tus URLs ahora mismo</h2>
+        <p class="cta-text">
+            No necesitas nada más: pega tu enlace, acorta y comparte. Así de fácil.
+        </p>
+        <a class="btn btn-light cta-button" asp-controller="UrlShortener" asp-action="Index">
+            Probar de nuevo
+        </a>
+    </div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const copyButtons = document.querySelectorAll(".copy-button");
+
+            copyButtons.forEach(button => {
+                button.addEventListener("click", async () => {
+                    const url = button.getAttribute("data-url");
+                    if (!url) return;
+
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        const originalText = button.textContent;
+                        button.textContent = "Copiado";
+                        button.classList.remove("btn-outline-secondary");
+                        button.classList.add("btn-success");
+
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                            button.classList.remove("btn-success");
+                            button.classList.add("btn-outline-secondary");
+                        }, 2000);
+                    } catch {
+                        alert("No se pudo copiar el enlace. Cópielo manualmente.");
+                    }
+                });
+            });
+        });
+    </script>
 }
